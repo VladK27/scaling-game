@@ -20,7 +20,7 @@ import java.time.OffsetDateTime;
 @Table(name = "device_events")
 public class DeviceEvent {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
     private long eventId;
 

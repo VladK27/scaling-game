@@ -99,6 +99,13 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.scale.weathereventprocessor.WeatherEventProcessorApplication</mainClass>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
