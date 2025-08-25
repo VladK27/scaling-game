@@ -8,8 +8,6 @@ import com.scale.eventproducer.service.LocationService;
 import com.scale.eventproducer.util.UnitConverter;
 import com.scale.eventproducer.util.UnitResolver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,9 +15,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class DeviceEventServiceImpl implements DeviceEventService {
-    private static double WIND_SPEED_MAX = 90.0;
-    private static double TEMPERATURE_MIN = -40.0;
-    private static double TEMPERATURE_MAX = 40.0;
+    private static final double WIND_SPEED_MAX = 90.0;
+    private static final double TEMPERATURE_MIN = -40.0;
+    private static final double TEMPERATURE_MAX = 40.0;
 
     private final LocationService locationService;
 
@@ -37,11 +35,7 @@ public class DeviceEventServiceImpl implements DeviceEventService {
     }
 
     @Override
-    @EventListener(ApplicationReadyEvent.class)
     public DeviceEventDto getDeviceEvent() {
-        for (int i = 0; i < 100; i++) {
-            System.out.println(getRandomEventDto());
-        }
         return getRandomEventDto();
     }
 
