@@ -6,7 +6,7 @@ import java.time.ZoneId;
 import java.util.Optional;
 
 public class TimeZoneResolver {
-    private static final TimeZoneEngine engine = TimeZoneEngine.initialize();;
+    private static final TimeZoneEngine engine = TimeZoneEngine.initialize();
 
     /**
      * Resolves the {@link java.time.ZoneId} (time zone) for a given geographic location.

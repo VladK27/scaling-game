@@ -20,7 +20,7 @@ public class KafkaMessageSender {
     private final DeviceEventService eventService;
     private final String topicName;
 
-    private final static int MESSAGES_TO_SEND = 10_000;
+    private final static int MESSAGES_TO_SEND = 100;
 
     @Autowired
     public KafkaMessageSender(KafkaTemplate<String, DeviceEventDto> kafka, DeviceEventService eventService,

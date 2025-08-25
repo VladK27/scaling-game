@@ -1,5 +1,6 @@
 package com.scale.weathereventprocessor.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.scale.weathereventprocessor.model.DeviceEvent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeviceEventDto {
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:SS")
     private LocalDateTime timestamp;
     private int batteryLevel;
     private String city;
