@@ -10,7 +10,6 @@ import com.scale.weathereventprocessor.util.UnitResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
@@ -40,7 +39,7 @@ public class DeviceEventServiceImpl implements DeviceEventService {
 
         if (UnitResolver.isUsesImperialSystem(eventDto.getCountry())) {
             standardWindSpeed = UnitConverter.windSpeedToMetric(eventDto.getWindSpeed());
-            standardTemperature = UnitConverter.windSpeedToMetric(eventDto.getTemperature());
+            standardTemperature = UnitConverter.temperatureToCelsius(eventDto.getTemperature());
         }
 
         ZoneId timeZone = TimeZoneResolver.resolveTimeZone(eventDto.getLatitude(), eventDto.getLongitude());
