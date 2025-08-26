@@ -10,8 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 @Entity
 @Getter @Setter
@@ -22,7 +24,7 @@ public class DeviceEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
-    private long eventId;
+    private Long eventId;
 
     @Column(name = "event_time")
     private OffsetDateTime timestamp;
@@ -44,4 +46,34 @@ public class DeviceEvent {
 
     @Column(name = "weather")
     private String weather;
+
+    @Override
+    public String toString() {
+        return "DeviceEvent{" +
+                "eventId=" + eventId +
+                ", timestamp=" + timestamp +
+                ", batteryLevel=" + batteryLevel +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", temperature=" + temperature +
+                ", windSpeed=" + windSpeed +
+                ", weather='" + weather + '\'' +
+                '}';
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        DeviceEvent that = (DeviceEvent) o;
+        return getEventId() != null && Objects.equals(getEventId(), that.getEventId());
+    }
+
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
 }

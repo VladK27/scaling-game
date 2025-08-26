@@ -7,6 +7,7 @@ import com.scale.weathereventprocessor.service.DeviceEventService;
 import com.scale.weathereventprocessor.util.TimeZoneResolver;
 import com.scale.weathereventprocessor.util.UnitConverter;
 import com.scale.weathereventprocessor.util.UnitResolver;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
+@Slf4j
 @Service
 public class DeviceEventServiceImpl implements DeviceEventService {
     private final DeviceEventRepository deviceEventRepository;
@@ -28,6 +30,7 @@ public class DeviceEventServiceImpl implements DeviceEventService {
     @Transactional
     public void processEvent(DeviceEventDto eventDto) {
         DeviceEvent deviceEvent = resolveEntityFromDto(eventDto);
+        log.debug("Saving event to DB: {}", deviceEvent);
         this.deviceEventRepository.save(deviceEvent);
     }
 
