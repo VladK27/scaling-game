@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.scale</groupId>
     <artifactId>weatherEventProcessor</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>weatherEventProcessor</name>
     <description>weatherEventProcessor</description>
     <url/>
