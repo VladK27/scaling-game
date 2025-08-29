@@ -4,7 +4,7 @@ import com.scale.weathereventprocessor.dto.DeviceEventDto;
 import com.scale.weathereventprocessor.model.DeviceEvent;
 import com.scale.weathereventprocessor.repository.DeviceEventRepository;
 import com.scale.weathereventprocessor.service.DeviceEventService;
-import com.scale.weathereventprocessor.util.TimeZoneResolver;
+import com.scale.weathereventprocessor.service.TimeZoneService;
 import com.scale.weathereventprocessor.util.UnitConverter;
 import com.scale.weathereventprocessor.util.UnitResolver;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +19,12 @@ import java.time.ZoneId;
 @Service
 public class DeviceEventServiceImpl implements DeviceEventService {
     private final DeviceEventRepository deviceEventRepository;
+    private final TimeZoneService timeZoneService;
 
     @Autowired
-    public DeviceEventServiceImpl(DeviceEventRepository deviceEventRepository) {
+    public DeviceEventServiceImpl(DeviceEventRepository deviceEventRepository, TimeZoneService timeZoneService) {
         this.deviceEventRepository = deviceEventRepository;
+        this.timeZoneService = timeZoneService;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class DeviceEventServiceImpl implements DeviceEventService {
         this.deviceEventRepository.save(deviceEvent);
     }
 
-    private static DeviceEvent resolveEntityFromDto(DeviceEventDto eventDto) {
+    private DeviceEvent resolveEntityFromDto(DeviceEventDto eventDto) {
         double standardWindSpeed = eventDto.getWindSpeed();
         double standardTemperature = eventDto.getTemperature();
 
@@ -42,7 +44,7 @@ public class DeviceEventServiceImpl implements DeviceEventService {
             standardTemperature = UnitConverter.temperatureToCelsius(eventDto.getTemperature());
         }
 
-        ZoneId timeZone = TimeZoneResolver.resolveTimeZone(eventDto.getLatitude(), eventDto.getLongitude());
+        ZoneId timeZone = timeZoneService.resolveTimeZone(eventDto.getLatitude(), eventDto.getLongitude());
         OffsetDateTime standardTimestamp = eventDto.getTimestamp().atZone(timeZone).toOffsetDateTime();
 
         return eventDto.mapToEntity(standardTimestamp, standardTemperature, standardWindSpeed);
